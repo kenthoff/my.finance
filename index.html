@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my.finance</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <span class="logo">My.Finance</span>
+    </nav>
+    <main>
+        <div class="content-wrapper">
+            <div class="content-buffer">
+                <h2>Monthly Budget</h2>
+                <form action="http://localhost:3000/users" method="GET" id="customer-form">
+                    <label>Category</label>
+                    <select name="category" id="">
+                        <option>Groceries</option>
+                        <option>Gas</option>
+                        <option>Phone</option>
+                    </select>
+                    <label>Amount</label>
+                    <input type="text">
+                    <label>Description</label>
+                    <input type="text">
+                    <input type="submit" value="Add">
+                </form>
+                <form action="http://localhost:3000/users" method="GET">
+                    <label>Category</label>
+                    <select name="category" id="">
+                        <option>Groceries</option>
+                        <option>Gas</option>
+                        <option>Phone</option>
+                    </select>
+                    <label>Amount</label>
+                    <input type="text">
+                    <label>Description</label>
+                    <input type="text">
+                    <input type="submit" value="Add">
+                </form>
+                <form action="http://localhost:3000/api/courses/" id="example-form" method="POST">
+                    <label for="name">
+                        <strong>First Name:</strong>
+                        <input type="text" name="name" id="name">
+                    </label>
+                
+                    <label for="last-name">
+                        Last Name:
+                        <input type="text" name="last_name" id="last-name">
+                    </label>
+                
+                    <input type="submit" value="Create new user">
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+
+const exampleForm = document.getElementById("customer-form");
+exampleForm.addEventListener("submit", getCustomer);
+
+async function getCustomer(event){
+    event.preventDefault();
+
+    const url = 'http://localhost:8080/api/2';
+
+fetch(url, {
+    headers: {
+    'Content-Type': 'application/json',
+    },
+    'mode': 'no-cors'
+})
+  .then(response => response.json())
+  .catch(err => console.log(err));
+}
+
+
+</script>
+<!--
+<script>
+        /**
+     * Helper function for POSTing data as JSON with fetch.
+     *
+     * @param {Object} options
+     * @param {string} options.url - URL to POST data to
+     * @param {FormData} options.formData - `FormData` instance
+     * @return {Object} - Response body from URL that was POSTed to
+     */
+    async function postFormDataAsJson({ url, formData }) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const formDataJsonString = JSON.stringify(plainFormData);
+
+        const fetchOptions = {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: formDataJsonString,
+        };
+
+        const response = await fetch(url, fetchOptions);
+        console.log(response);
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
+        }
+
+        return response.json();
+    }
+
+    /**
+     * Event handler for a form submit event.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+     *
+     * @param {SubmitEvent} event
+     */
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const url = form.action;
+
+        try {
+            const formData = new FormData(form);
+            const responseData = await postFormDataAsJson({ url, formData });
+
+            console.log({ responseData });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const exampleForm = document.getElementById("example-form");
+    exampleForm.addEventListener("submit", handleFormSubmit);
+</script>
+-->
+</html>
